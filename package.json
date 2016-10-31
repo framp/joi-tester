@@ -12,7 +12,9 @@
     "joi-browser": "^9.1.0",
     "lodash.debounce": "^4.0.8",
     "moment": "^2.15.2",
-    "vue": "^2.0.1"
+    "style-loader": "^0.13.1",
+    "vue": "^2.0.1",
+    "vue-codemirror": "^2.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",

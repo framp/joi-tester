@@ -1,5 +1,8 @@
-import Vue from 'vue'
-import App from './App.vue'
+const Vue = require('vue') 
+const CodeMirror = require('vue-codemirror')
+const App = require('./App.vue')
+
+Vue.use(CodeMirror)
 
 new Vue({
   el: '#app',

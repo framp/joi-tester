@@ -1,8 +1,8 @@
 <template>
   <div id="editor">
-    <textarea :value="schema" @input="schemaUpdate"></textarea>
-    <textarea :value="source" @input="sourceUpdate"></textarea>
-    <pre v-html="output"></pre>
+    <codemirror :code="schema" :options="editorOptions" @changed="schemaUpdate"></codemirror>
+    <codemirror :code="source" :options="editorOptions" @changed="sourceUpdate"></codemirror>
+    <pre v-bind:class="{ hasError: output }" v-html="output"></pre>
   </div>
 </template>
 
@@ -16,6 +16,10 @@ export default {
   data: function() {
     return {
       schema: localStorage && localStorage.getItem('schema') || 
+        '//Joi Tester\n' + 
+        '\n' + 
+        '//https://github.com/hapijs/joi\n' + 
+        '//Insert here your Joi schema\n' +
         'Joi.object().keys({\n' +
         '  username: Joi.string().alphanum().min(3).max(30).required(),\n' +
         '  password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/),\n' +
@@ -24,7 +28,15 @@ export default {
         '  email: Joi.string().email()\n' +
         '}).with(\'username\', \'birthyear\').without(\'password\', \'access_token\')',
       source: localStorage && localStorage.getItem('source') || 
-        '{ username: \'abc\', birthyear: 1991 }'
+        '//Insert here the object to validate\n' + 
+        '{ username: \'abc\', birthyear: 1991 }',
+      editorOptions: { 
+        lineNumbers: true,
+        theme: 'mbo',
+        tabSize: 2, 
+        mode: 'text/javascript'
+      },
+      output: ''
     }
   },
   computed: {
@@ -34,19 +46,19 @@ export default {
         if (result.error) {
           return result.error.toString()
         }
-        return 'VALID'
+        return ''
       } catch (error) {
-        return error.message + '\n' + error.stack
+        return error.stack
       }
-    }
+    },
   },
   methods: {
-    schemaUpdate: debounce(function (e) {
-      this.schema = e.target.value
+    schemaUpdate: debounce(function (value) {
+      this.schema = value
       localStorage && localStorage.setItem('schema', this.schema);
     }, 300),
-    sourceUpdate: debounce(function (e) {
-      this.source = e.target.value
+    sourceUpdate: debounce(function (value) {
+      this.source = value
       localStorage && localStorage.setItem('source', this.source);
     }, 300)
   }
@@ -56,37 +68,33 @@ export default {
 <style>
 html, body, #editor {
   margin: 0;
+  padding: 0;
   height: 100%;
   font-family: 'Helvetica Neue', Arial, sans-serif;
   color: #333;
 }
 
-textarea, #editor pre {
-  display: inline-block;
-  width: 49%;
-  height: 70%;
-  vertical-align: top;
-  box-sizing: border-box;
-  padding: 0 20px;
+#editor > div {
+  width: 50%;
+  height: 60%;
+  float: left;
 }
 
-#editor pre {
-  width: 100%;
-  height: 30%;
+#editor > pre::before {
+  content: '✓ The object is valid';
 }
-
-textarea {
-  border: none;
-  border-right: 1px solid #ccc;
-  resize: none;
-  outline: none;
-  background-color: #f6f6f6;
-  font-size: 14px;
-  font-family: 'Monaco', courier, monospace;
+#editor > pre.hasError::before {
+  content: '✕ ';
+}
+#editor > pre {
+  height: 40%;
   padding: 20px;
+  box-sizing: border-box;
+  clear:both;
+  background: #7df481;
 }
-
-code {
-  color: #f66;
+#editor > pre.hasError {
+  background: #fe5c5c;
+  color: #fff;
 }
 </style>

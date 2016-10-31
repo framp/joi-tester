@@ -91,10 +91,11 @@ html, body, #editor {
   padding: 20px;
   box-sizing: border-box;
   clear:both;
-  background: #7df481;
+  background: #333;
+  color: #7df481;
+  font-size: 125%;
 }
 #editor > pre.hasError {
-  background: #fe5c5c;
-  color: #fff;
+  color: #fe5c5c;
 }
 </style>

@@ -1,6 +1,6 @@
 {
   "name": "joi-tester",
-  "description": "Quickly test joi validation on the browser",
+  "description": "Quickly test joi validation in the browser",
   "author": "Federico Rampazzo <frampone@gmail.com>",
   "private": true,
   "scripts": {

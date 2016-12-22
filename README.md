@@ -1,6 +1,6 @@
 # joi-tester
 
-> Quickly test joi validation on the browser
+> Quickly test joi validation in the browser
 
 ## Build Setup
 

@@ -8,8 +8,8 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
-    "joi": "^9.2.0",
-    "joi-browser": "^9.1.0",
+    "joi": "^13.4.0",
+    "joi-browser": "^13.4.0",
     "lodash.debounce": "^4.0.8",
     "moment": "^2.15.2",
     "style-loader": "^0.13.1",

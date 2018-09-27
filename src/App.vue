@@ -1,7 +1,7 @@
 <template>
   <div id="editor">
-    <codemirror :code="schema" :options="editorOptions" @changed="schemaUpdate"></codemirror>
-    <codemirror :code="source" :options="editorOptions" @changed="sourceUpdate"></codemirror>
+    <codemirror :value="schema" :options="editorOptions" @input="schemaUpdate"></codemirror>
+    <codemirror :value="source" :options="editorOptions" @input="sourceUpdate"></codemirror>
     <pre v-bind:class="{ hasError: output }" v-html="output"></pre>
   </div>
 </template>
@@ -35,8 +35,7 @@ export default {
         theme: 'mbo',
         tabSize: 2, 
         mode: 'text/javascript'
-      },
-      output: ''
+      }
     }
   },
   computed: {
